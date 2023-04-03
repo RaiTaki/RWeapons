@@ -1,4 +1,4 @@
-package xyz.raitaki.rweapons.utils;
+package xyz.raitaki.rweapons.utils.physics;
 
 
 import org.bukkit.*;
@@ -7,6 +7,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.Vector;
+import xyz.raitaki.rweapons.utils.ShapeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,27 +23,25 @@ public class BouncePhysics {
     public BouncePhysics(Location location, Vector initialVelocity) {
         this.location = location;
         this.velocity = initialVelocity;
-        if(velocity.getY() < -1)
-            velocity.setY(-1);
     }
 
-    public Location update(double deltaTime) {
+    public Location update(double deltaTime, double r) {
         Location location = this.location;
         location.add(this.velocity.clone().multiply(deltaTime));
         boolean collided = false;
-
+        this.velocity.setY(this.velocity.getY() - gravity * deltaTime);
 
         // Check for collisions
-        double radius = 0.12 + deltaTime/1.5;
+        double radius = r + deltaTime/1.5;
 
         // Check for collision with ceiling
-        Location ceilingLocation = location.clone().add(0,(radius*1.7),0);
+        /*Location ceilingLocation = location.clone().add(0,(radius*1.7),0);
         location.getWorld().spawnParticle(Particle.REDSTONE, ceilingLocation, 1, 0, 0, 0, 0, new Particle.DustOptions(Color.YELLOW, 0.4f));
         if (ceilingLocation.getBlock().getType().isSolid()) {
             // Bounce off block below ball
             this.velocity.setY(Math.abs(this.velocity.getY()));
             collided = true;
-        }
+        }*/
 
         /*for (BlockFace blockFace : BlockFace.values()) {
             if (blockFace == BlockFace.SELF) {
@@ -67,7 +66,7 @@ public class BouncePhysics {
             }
         }*/
 
-        for(Location adjacentLocation : ShapeUtils.showSphere(location, radius, 6)){
+        for (Location adjacentLocation : ShapeUtils.showSphere(location, radius, 6)) {
             Block adjacentBlock = adjacentLocation.getBlock();
             location.getWorld().spawnParticle(Particle.REDSTONE, adjacentLocation, 1, 0, 0, 0, 0, new Particle.DustOptions(Color.FUCHSIA, 0.4f));
             trys++;
@@ -76,7 +75,7 @@ public class BouncePhysics {
                 Vector normal = adjacentLocation.toVector().subtract(location.toVector()).normalize();
 
                 // Calculate reflection vector
-                Vector reflection = this.velocity.clone().subtract(normal.clone().multiply(this.velocity.clone().dot(normal) * 2));
+                Vector reflection = this.velocity.clone().subtract(normal.multiply(this.velocity.clone().dot(normal) * 2));
 
                 // Set new velocity to the reflection vector
                 this.velocity = reflection;
@@ -85,6 +84,8 @@ public class BouncePhysics {
                 break;
             }
         }
+
+
 
         // Check for collision with block below ball
         Location blockBelowLocation = location.clone().subtract(0,(radius*1.7),0);
@@ -98,7 +99,6 @@ public class BouncePhysics {
         if (!collided) {
             location.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, new Particle.DustOptions(Color.LIME, 1));
             trys = 0;
-            this.velocity.setY(this.velocity.getY() - gravity * deltaTime);
             return location;
         }else{
             location.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, new Particle.DustOptions(Color.RED, 1));
@@ -114,5 +114,4 @@ public class BouncePhysics {
         }
         return location;
     }
-
 }

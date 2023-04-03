@@ -8,11 +8,11 @@ import xyz.raitaki.rweapons.weapon.skills.ThrowSkill;
 
 import java.util.UUID;
 
-public class NanoItem extends Weapon {
+public class UsainItem extends Weapon {
 
-    public NanoItem(UUID owner) {
-        super("NanoItem", owner, 1, Material.STONE, true);
-        createHeadItem();
-        addSkill(new ThrowSkill(this, new Vector3f(5,5,5), 0.12*5), SkillClickType.LEFT_CLICK);
+    public UsainItem(UUID owner) {
+        super("UsainItem", owner, 1, Material.SPRUCE_STAIRS, true);
+        addSkill(new ThrowSkill(this, new Vector3f(0.5f,0.5f,0.5f), 0.12), SkillClickType.LEFT_CLICK);
+
     }
 }

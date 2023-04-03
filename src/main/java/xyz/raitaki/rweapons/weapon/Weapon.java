@@ -61,6 +61,10 @@ public abstract class Weapon {
         }
     }
 
+    public boolean isheld(){
+        return doesDisplayExists() && getOwner().getInventory().contains(itemStack);
+    }
+
     public boolean doesDisplayExists(){
         return display == null || display.isDead();
     }

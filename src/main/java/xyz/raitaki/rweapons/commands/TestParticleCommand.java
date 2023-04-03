@@ -9,7 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import xyz.raitaki.rweapons.utils.BouncePhysics;
 
 import java.util.ArrayList;
 import java.util.List;
