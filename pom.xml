@@ -95,5 +95,12 @@
             <artifactId>JDA</artifactId>
             <version>5.0.0-beta.6</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.vecmath/vecmath -->
+        <dependency>
+            <groupId>javax.vecmath</groupId>
+            <artifactId>vecmath</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+
     </dependencies>
 </project>

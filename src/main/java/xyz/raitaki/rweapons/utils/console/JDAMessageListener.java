@@ -14,12 +14,11 @@ public class JDAMessageListener extends ListenerAdapter {
         String text = "";
         if (event.isFromType(ChannelType.TEXT)) {
 
-            text = String.format("[%s][%s] %#s: %s", event.getGuild().getName(),
+            text = String.format("&8[%s][%s] &7%#s: &f%s", event.getGuild().getName(),
                     event.getChannel().getName(), event.getAuthor(), event.getMessage().getContentDisplay());
         }
         else {
-            text = String.format("[%s][%s] %#s: %s", event.getGuild().getName(),
-                    event.getChannel().getName(), event.getAuthor(), event.getMessage().getContentDisplay());
+            text = String.format("&8[PM] &7%#s: &f%s", event.getAuthor(), event.getMessage().getContentDisplay());
         }
         for(ConsoleSkill consoleSkill : ConsoleSkill.getConsoleViewers()){
             consoleSkill.getViewer().addText(text);

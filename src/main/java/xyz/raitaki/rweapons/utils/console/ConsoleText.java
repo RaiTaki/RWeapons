@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
-import xyz.raitaki.rweapons.RWeapons;
+import xyz.raitaki.rweapons.RWeapon;
 
 import java.util.ArrayList;
 
@@ -50,12 +50,12 @@ public class ConsoleText {
                     ConsoleText.this.text = finaltext.substring(0, ConsoleText.this.text.length() + charPerSecond);
                 }
                 if(!isAnyTimerPlays() && sound){
-                    viewer.getLocation().getWorld().playSound(viewer.getLocation(), Sound.BLOCK_STONE_BUTTON_CLICK_ON, 1, 0.6f);
+                    viewer.getLocation().getWorld().playSound(viewer.getLocation(), Sound.BLOCK_STONE_BUTTON_CLICK_ON, 0.3f, 0f);
                     playing = true;
                 }
                 viewer.update();
             }
-        }.runTaskTimer(RWeapons.getInstance(), 1,1);
+        }.runTaskTimer(RWeapon.getInstance(), 1,1);
         return this;
     }
 

@@ -3,7 +3,7 @@ package xyz.raitaki.rweapons.weapon.skills;
 import lombok.Getter;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.joml.Vector3f;
-import xyz.raitaki.rweapons.RWeapons;
+import xyz.raitaki.rweapons.RWeapon;
 import xyz.raitaki.rweapons.utils.physics.BouncePhysics;
 import xyz.raitaki.rweapons.weapon.Skill;
 import xyz.raitaki.rweapons.weapon.Weapon;
@@ -40,6 +40,6 @@ public class ThrowSkill extends Skill {
                 getWeapon().getDisplay().teleport(physics.update(deltaTime, radius));
 
             }
-        }.runTaskTimer(RWeapons.getInstance(), 0, 1);
+        }.runTaskTimer(RWeapon.getInstance(), 0, 1);
     }
 }

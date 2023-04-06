@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.TextDisplay;
 import org.bukkit.scheduler.BukkitRunnable;
-import xyz.raitaki.rweapons.RWeapons;
+import xyz.raitaki.rweapons.RWeapon;
 import xyz.raitaki.rweapons.utils.console.ConsoleViewer;
 import xyz.raitaki.rweapons.weapon.Skill;
 import xyz.raitaki.rweapons.weapon.Weapon;
@@ -100,6 +100,6 @@ public class ConsoleSkill extends Skill {
                     viewer.teleport(loc, false);
                 }
             }
-        }.runTaskTimer(RWeapons.getInstance(), 0,1);
+        }.runTaskTimer(RWeapon.getInstance(), 0,1);
     }
 }

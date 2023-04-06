@@ -1,4 +1,4 @@
-package xyz.raitaki.rweapons.utils;
+package xyz.raitaki.rweapons.utils.math;
 
 import org.bukkit.Location;
 import org.bukkit.World;

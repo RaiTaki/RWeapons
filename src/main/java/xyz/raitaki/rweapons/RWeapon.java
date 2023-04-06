@@ -18,18 +18,19 @@ import xyz.raitaki.rweapons.weapon.weapons.Stone;
 import xyz.raitaki.rweapons.weapon.weapons.UsainItem;
 
 import java.io.File;
-import java.time.Duration;
 import java.util.UUID;
 
 import static org.bukkit.Bukkit.getPluginManager;
 
-public final class RWeapons extends JavaPlugin {
+public final class RWeapon extends JavaPlugin {
 
-    @Getter private static RWeapons instance;
+    @Getter private static RWeapon instance;
     @Getter private static Json jsonConfig;
     @Getter private static JDA jda;
     private Logger logger;
     private LogAppender appender;
+
+    private boolean discordEnabled = false;
 
     @Override
     public void onEnable() {
@@ -48,12 +49,15 @@ public final class RWeapons extends JavaPlugin {
         jsonConfig = new Json(new File(this.getDataFolder().getAbsolutePath() + "/config.json"));
 
         String token = jsonConfig.getOrSetDefault("discord.token", "token");
-        if(token.length() < 10){
-            getLogger().warning("§4Please set a valid discord bot token in the config.json file!");
-        }else{
-            jda = JDABuilder.createDefault(token)
-                    .enableIntents(GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS))
-                    .addEventListeners(new JDAMessageListener()).build();
+
+        if(discordEnabled) {
+            if (token.length() < 10) {
+                getLogger().warning("§4Please set a valid discord bot token in the config.json file!");
+            } else {
+                jda = JDABuilder.createDefault(token)
+                        .enableIntents(GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS))
+                        .addEventListeners(new JDAMessageListener()).build();
+            }
         }
     }
 
@@ -64,6 +68,7 @@ public final class RWeapons extends JavaPlugin {
         for(ConsoleSkill consoleSkill : ConsoleSkill.getConsoleViewers()){
             consoleSkill.getViewer().removeDisplays();
         }
-        jda.shutdownNow();
+        if(discordEnabled)
+            jda.shutdownNow();
     }
 }
